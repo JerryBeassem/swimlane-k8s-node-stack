@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nodejs-env
+data:
+  .env  : |+
+    TWITTER_CLIENTID=<ID>
+    TWITTER_SECRET=<SECRET>
+    GITHUB_CLIENTID=<ID>
+    GITHUB_SECRET=<SECRET>
+    LINKEDIN_CLIENTID=<ID>
+    LINKEDIN_SECRET=<SECRET>
+    GOOGLE_CLIENTID=<ID>
+    GOOGLE_SECRET=<SECRET>
+    IMAGER_S3_KEY=AWS_S3_KEY
+    IMAGER_S3_SECRET=AWS_S3_SECRET
+    IMAGER_S3_BUCKET=AWS_S3_BUCKET
+    MONGODB_URL=mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/noobjs_test
