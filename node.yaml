@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-demo
+  labels:
+    app: nodejs-demo
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  type: LoadBalancer
+  selector:
+    app: nodejs-demo
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nodejs-demo
+  labels:
+    app: nodejs-demo
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nodejs-demo
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: nodejs-env
+      containers:
+        - image: gcr.io/sandbox-244719/nodejs@sha256:5c19c50ba90e09a89f3e97954920a9b6044ef925125c33b791f92ec145584555
+          imagePullPolicy: Always
+          name: nodejs
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+          - name: config
+            mountPath: /app/.env
+            subPath: .env
